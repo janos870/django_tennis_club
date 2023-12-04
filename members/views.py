@@ -1,6 +1,9 @@
 from django.http import HttpResponse
+from django.shortcuts import render, redirect
+from .forms import MemberForm
 from django.template import loader
 from .models import Member
+from django.utils import timezone
 
 
 def members(request):
@@ -18,6 +21,22 @@ def details(request, id):
     context = {
         "mymember": mymember
     }
+    return HttpResponse(template.render(context, request))
+
+
+def add_member(request):
+    if request.method == 'POST':
+        form = MemberForm(request.POST)
+        if form.is_valid():
+            member = form.save(commit=False)
+            member.joined_date = timezone.now()
+            member.save()
+            return redirect('members')
+    else:
+        form = MemberForm()
+
+    template = loader.get_template('add_member.html')
+    context = {'form': form}
     return HttpResponse(template.render(context, request))
 
 

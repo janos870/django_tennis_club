@@ -1,0 +1,38 @@
+{% extends "master.html" %}
+
+
+{% block content %}
+  <form action="{% url 'add_member' %}" method="post">
+
+    <div class="inputbx">
+      <div>
+        <h2>Add Member</h2>
+      </div>
+
+      <div>
+        <label for="firstname"></label>
+        <input id="firstname" name="firstname" placeholder="Firstname:" required type="text">
+      </div>
+
+      <div>
+        <label for="lastname"></label>
+        <input type="text" id="lastname" name="lastname" placeholder="Lestname:" required>
+      </div>
+
+      <div>
+        <label for="phone"></label>
+        <input type="tel" id="phone" name="phone" placeholder="Tel:" required>
+      </div>
+
+      <div>
+        <label for="joined_date"></label>
+        <input type="date" id="joined_date" name="joined_date" required>
+      </div>
+
+      <div class="submit-btn">
+        <input type="submit" value="Add Member">
+      </div>
+    </div>
+    {% csrf_token %}
+  </form>
+{% endblock %}
